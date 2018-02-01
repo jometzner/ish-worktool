@@ -1,0 +1,67 @@
+# Id of the platform to deploy on (must match the actual OS/distribution for the tests to be successful)
+# Choose from: linux.rhel.x86_64, linux.sles.x86_64, win.x86_64
+{% if os == 'nt' %}platformId = win.x86_64
+{% else %}platformId = linux.rhel.x86_64
+{% endif %}
+# ID of the deployed server instance
+instanceId = {{ instanceId }}
+
+# Set environment for your deployment: production, test, development
+environment = development
+# Choose whether or not to deploy Javadoc for release cartridges
+#includeJavadoc = false
+
+# Configure the number of used application servers
+numberOfAppservers = 1
+
+# Set java location for use in scripts, e.g. to execute the server-startup
+# Leave empty if the same java as gradle-process uses should used
+#javaHome = C:/path/to/jdk
+
+# license
+licenseFile = {{ licenseFile }}
+
+# Important ports
+webserverPort = {{ 9089 + instanceId|int }}
+webserverHttpsPort = {{ 9442 + instanceId|int }}
+appserverDebugPort = 66{{ instanceId }}7
+testrunnerDebugPort = 66{{ instanceId }}8
+dbToolDebugPort = 66{{ instanceId }}9
+
+# The remaining local ports are taken from a port range, should contain 10 free ports (or more for more appserver instances)
+# To find out which port is used where, open the target/server/settings.gradle
+freePortsStart = {{ 10049 + instanceId|int }}
+freePortsEnd = {{ 10058 + instanceId|int }}
+
+# Database configuration
+databaseType = {{ databaseType }}
+{% if databaseType == "mssql" %}jdbcUrl = jdbc:sqlserver://localhost:1433;databaseName=DB;
+databaseUser = intershop
+databasePassword = intershop
+{% else %}jdbcUrl = jdbc:oracle:thin:@jdevdb7.rnd.j.intershop.de:1521:I12EE02
+databaseUser = jmetzner{{ instanceId }}
+databasePassword = jmetzner{{ instanceId }}
+{% endif %}
+databaseHost = jdevdb7.rnd.j.intershop.de
+databasePort = 1521
+databaseSid = I12EE02
+databaseTnsAlias = I12EE02.world
+oracleClientDir = /home/{{ user }}
+{% if os != 'nt' %}
+# User group and user, uncomment and set on Linux
+user = {{ user }}
+userGroup = {{ user }}
+{% endif %}
+# Multicast configuration
+# Use the variable multicastIPSuffix to automatically configure your multicast
+# configuration. Set your phone number to configure the last two bytes of the multicast IP, e.g. 12.34
+multicastIPSuffix = 34.48
+# Use different multicast ports for different deployments of yours
+multicastPort = 5000{{ instanceId }}
+
+webAdapterSharedMemoryKey = 0x2001
+
+#list of ZooKeeper connection urls separated ';'), which manage the solr cluster
+solrZooKeeperHostList = localhost:9981
+#prefix to distinguish solr indexes, within the solr cluster
+solrClusterIndexPrefix = {{ wtid }}

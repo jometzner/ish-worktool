@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "<2.0.0"
+autopep8 = "*"
+rope = "*"
+
+[packages]
+easyargs = "*"
+jinja2 = "*"
+pyyaml = "*"
+gitpython = "*"
+
+[requires]
+python_version = "2.7"

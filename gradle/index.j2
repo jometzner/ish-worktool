@@ -1,0 +1,55 @@
+<html>
+    <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper light-blue ">
+              <a href="#" class="brand-logo">{{ user }}`s PC</a>
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#">ICMs</a></li>
+              </ul>
+            </div>
+          </nav>
+
+          <main>
+            <div class="row">
+
+{% for workdir in workdirs %}
+<div class="col s12 m4">
+  <div class="card small cyan" style="max-width:300px">
+	<div class="card-content white-text">
+	  <span class="card-title">{{ workdir.wtid }}</span>
+	  <p>This is {{ workdir.version }} with Hamster content, be warned.</p>
+	</div>
+	<div class="card-action">
+	  <a class="lime-text text-lighten-3" href="https://jmetznernb.localdev.intershop.de:{{ workdir.port(9443) }}/INTERSHOP/web/WFS/SLDSystem">
+		<i class="material-icons dp48">developer_board</i>
+		Backoffice</a><br>
+	  <a class="lime-text text-lighten-3"  href="https://jmetznernb.localdev.intershop.de:{{ workdir.port(9443) }}/INTERSHOP/web/WFS/inSPIRED-inTRONICS-Site/en_US/-/USD/Default-Start">
+		<i class="material-icons dp48">shopping_cart</i>
+		Storefront</a>
+	</div>
+  </div>
+</div>
+{% endfor %}
+<div class="col s12 m4">
+<div class="card small cyan" style="max-width:300px">
+  <div class="card-action">
+<a class="lime-text text-lighten-3" href="http://localhost:8025">
+<i class="material-icons dp48">email</i>
+Mailhog</a>
+<a class="lime-text text-lighten-3" href="http://localhost:8981/solr">
+<i class="material-icons dp48">search</i>
+Solr</a>
+  </div>
+</div>
+</div>
+              </div>
+
+
+      </main>
+    </body>
+</html>

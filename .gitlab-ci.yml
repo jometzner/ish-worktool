@@ -1,0 +1,52 @@
+stages:
+  - build
+  - e2e
+
+build_wt:
+  cache: {}
+  dependencies: []
+  image: docker:stable
+  stage: build
+  only:
+    refs:
+      - master
+      - merge_requests
+  tags:
+    - shell-executor
+    - docker
+  services:
+    - docker:dind
+  script:
+    - VERSION="$(grep "version" scripts/setup.py | grep -Eo "[0-9][^\",\']*")"
+    - docker info --format '{{json .Name}}' || (export DOCKER_HOST=tcp://localhost:2375/ DOCKER_DRIVER=overlay2 && docker info --format '{{json .Name}}') || (export DOCKER_HOST=tcp://docker:2375/ DOCKER_DRIVER=overlay2 && docker info --format '{{json .Name}}')
+    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_BUILD_REF}
+      --build-arg displayVersion="$VERSION ($CI_COMMIT_REF_NAME @ $CI_COMMIT_SHA)"
+      --label revision="${CI_BUILD_REF}"
+      --label project="${CI_PROJECT_URL}"
+      .
+    - docker run --rm --name my-running-app ${CI_REGISTRY_IMAGE}:${CI_BUILD_REF} -h
+
+wt:
+  cache: {}
+  dependencies: []
+  image: docker:stable
+  stage: e2e
+  only:
+    refs:
+      - master
+      - merge_requests
+  tags:
+    - shell-executor
+    - docker
+  services:
+    - docker:dind
+  script:
+    - VERSION="$(grep "version" scripts/setup.py | grep -Eo "[0-9][^\",\']*")"
+    - docker info --format '{{json .Name}}' || (export DOCKER_HOST=tcp://localhost:2375/ DOCKER_DRIVER=overlay2 && docker info --format '{{json .Name}}') || (export DOCKER_HOST=tcp://docker:2375/ DOCKER_DRIVER=overlay2 && docker info --format '{{json .Name}}')
+    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_BUILD_REF}
+      --build-arg displayVersion="$VERSION ($CI_COMMIT_REF_NAME @ $CI_COMMIT_SHA)"
+      --label revision="${CI_BUILD_REF}"
+      --label project="${CI_PROJECT_URL}"
+      .
+    - docker run ${CI_REGISTRY_IMAGE}:${CI_BUILD_REF} setup 7700
+    - docker run ${CI_REGISTRY_IMAGE}:${CI_BUILD_REF} list

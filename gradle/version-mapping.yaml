@@ -1,0 +1,128 @@
+p_platform:
+  versions:
+    7600: "SB_10.0"
+    7700: "SB_11"
+    7800: "SB_12"
+    7900: "SB_13"
+    71039: "master"
+    71038: "SB_52"
+    71032: "SB_45"
+  git: "git@ssh.dev.azure.com:v3/intershop-com/Products/icm-as-platform"
+  dependson: []
+
+platform:
+  includedIn: "p_platform"
+  versionRecom: ".ivyPlatform.version"
+
+f_content:
+  versions:
+    7600: "SB_10"
+    7700: "SB_11"
+    7800: "SB_12"
+    7900: "SB_13"
+    71039: "master"
+    71038: "SB_45"
+    71032: "SB_38-LTS"
+  git: "git@ssh.dev.azure.com:v3/intershop-com/Products/icm-as-content"
+  dependson: [".ivyPlatform.version"]
+
+platform_cms:
+  includedIn: "f_content"
+  versionRecom: ".ivyContent.version"
+
+f_business:
+  versions:
+    7600: "SB_10.0"
+    7700: "SB_11"
+    7800: "SB_12"
+    7900: "SB_13"
+    71039: "master"
+    71038: "SB_53"
+    71032: "SB_46"
+  git: "ssh://git@bitbucket.intershop.de/is/f_business.git"
+  dependson:
+    [
+      ".ivyApiRemote.version",
+      ".ivyApiService.version",
+      ".ivyContent.version",
+      ".ivyPlatform.version",
+    ]
+
+intershop7:
+  includedIn: "f_business"
+  versionRecom: ".ivyBusiness.version"
+
+f_b2b:
+  versions:
+    7600: "SB_2"
+    7700: "SB_3"
+    7800: "SB_4"
+    7900: "SB_5"
+    71039: "master"
+    71038: "SB_43"
+    71032: "SB_36"
+  git: "ssh://git@bitbucket.intershop.de/is/f_b2b.git"
+  dependson: [".ivyBusiness.version"]
+
+b2b:
+  includedIn: "f_b2b"
+  versionRecom: ".ivyB2b.version"
+
+commerce_management_b2c:
+  versions:
+    7600: "SB_7.6"
+    7700: "SB_7.7"
+    7800: "SB_7.8"
+    7900: "SB_7.9"
+    71039: "master"
+    71038: "SB_7.10.38"
+    71032: "SB_7.10.32"
+  git: "ssh://git@bitbucket.intershop.de/is/commerce_management_b2c.git"
+  dependson: [".ivyBusiness.version"]
+  versionRecom: ".ivyIcm-b2c.version"
+  assembly: true
+
+commerce_management_b2x:
+  versions:
+    7600: "SB_7.6"
+    7700: "SB_7.7"
+    7800: "SB_7.8"
+    7900: "SB_7.9"
+    71039: "master"
+    71038: "SB_7.10.38"
+    71032: "SB_7.10.32"
+  git: "ssh://git@bitbucket.intershop.de/is/commerce_management_b2x.git"
+  dependson: [".ivyB2b.version"]
+  versionRecom: ".ivyIcm-b2x.version"
+  assembly: true
+
+a_responsive:
+  versions:
+    7600: "SB_1.0"
+    7700: "SB_2"
+    7800: "SB_3"
+    7900: "SB_4"
+    71039: "master"
+    71038: "SB_32"
+    71032: "SB_26"
+  git: "git@ssh.dev.azure.com:v3/intershop-com/Products/icm-responsive"
+  dependson: [".ivyIcm-b2c.version", ".ivyIcm-b2x.version"]
+
+inspired-b2c:
+  includedIn: "a_responsive"
+  versionRecom: ".ivyInspired-b2c.version"
+
+inspired-b2x:
+  includedIn: "a_responsive"
+  versionRecom: ".ivyInspired-b2x.version"
+
+f_solrcloud:
+  versions:
+    71038: "SB_3"
+  git: "git@ssh.dev.azure.com:v3/intershop-com/Products/icm-solrcloud"
+  dependson: [".ivyIcm-b2c.version"]
+
+solrcloud:
+  includedIn: "f_solrcloud"
+  versionRecom: ".ivySolrcloud.version"
+

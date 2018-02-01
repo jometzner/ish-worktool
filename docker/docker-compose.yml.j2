@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  solr:
+    image: solr:8.2
+    container_name: solr{{ instanceId }}
+    ports:
+      - "127.0.0.1:8981:8983"
+      - "127.0.0.1:9981:9983"
+    volumes:
+      - solr{{ instanceId }}_data:/var/solr
+    command:
+      - "solr-foreground"
+      - "-cloud"
+
+  db:
+    build:
+      context: {{ workdir }}/.dotfiles/docker/mssql
+    container_name: mssql{{ instanceId }}
+    hostname: mssql
+    ports:
+      - 127.0.0.1:1433:1433
+    environment:
+      ACCEPT_EULA: "yes"
+    volumes:
+      - icm_db_mssql{{ instanceId }}:/var/opt/mssql
+
+  mail:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - 127.0.0.1:1025:1025
+      - 127.0.0.1:8025:8025
+
+volumes:
+  icm_db_mssql{{ instanceId }}:
+  solr{{ instanceId }}_data:

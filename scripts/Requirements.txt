@@ -1,0 +1,4 @@
+easyargs == 0.9.4
+Jinja2 == 2.11.3
+PyYAML == 5.4.1
+GitPython == 3.1.27
