@@ -1,0 +1,42 @@
+[build-system]
+# Minimum requirements for the build system to execute.
+# requires = ["setuptools", "wheel"]  # PEP 508 specifications.
+requires = ["setuptools", "setuptools-scm", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ISHWorkTools"
+description = "Make working easy"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+keywords = ["automate", "work", "setup"]
+authors = [
+  { name = "Johannes Metzner", email = "jm@jometzner.de" },
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11"
+]
+dependencies = [
+  "easyargs",
+  "Jinja2",
+  "gitpython",
+  "pyyaml",
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/jometzner/ish-worktool#readme"
+Issues = "https://github.com/jometzner/ish-worktool/issues"
+Source = "https://github.com/jometzner/ish-worktool"
+
+[project.scripts]
+wt = "workTools:WorkTools"
+
+[tool.setuptools.packages.find]
+where = ["scripts"]
