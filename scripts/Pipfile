@@ -3,16 +3,11 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
-[dev-packages]
-pylint = "<2.0.0"
-autopep8 = "*"
-rope = "*"
-
 [packages]
-easyargs = "*"
-jinja2 = "*"
-pyyaml = "*"
-gitpython = "*"
+easyargs = "0.9.4"
+jinja2 = "2.11.3"
+pyyaml = "5.4.1"
+gitpython = "3.1.27"
 
 [requires]
-python_version = "2.7"
+python_version = "3.10"

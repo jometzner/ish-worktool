@@ -24,9 +24,13 @@ classifiers = [
 ]
 dependencies = [
   "easyargs",
-  "Jinja2",
+  "gitdb",
   "gitpython",
+  "jinja2",
+  "markupsafe",
   "pyyaml",
+  "six",
+  "smmap",
 ]
 dynamic = ["version"]
 
