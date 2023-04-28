@@ -2,3 +2,4 @@ scripts/dist/
 scripts/build/
 scripts/WorkTools.egg-info/
 **/*.pyc
+license/license.xml
