@@ -1,5 +1,6 @@
+build/
 scripts/dist/
 scripts/build/
-scripts/WorkTools.egg-info/
+scripts/ISHWorkTools.egg-info/
 **/*.pyc
 license/license.xml
