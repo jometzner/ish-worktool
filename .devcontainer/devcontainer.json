@@ -12,7 +12,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "git clone /workspaces/ish-worktool $HOME/work/.dotfiles"
+	"postCreateCommand": "git clone ${containerWorkspaceFolder} $HOME/work/.dotfiles"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
