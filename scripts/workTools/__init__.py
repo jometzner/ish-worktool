@@ -122,7 +122,7 @@ class WorkTools(object):
         """
         Print version information
         """
-        print(pkg_resources.get_distribution('WorkTools').version)
+        print(pkg_resources.get_distribution('ISHWorkTools').version)
 
     def cd(self, alias, ):
         """
