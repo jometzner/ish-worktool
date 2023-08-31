@@ -14,5 +14,6 @@ jobs:
       - name: Build and run dev container task
         uses: devcontainers/ci@v0.3
         with:
+          push: never
           # Change this to be your CI task/script
           runCmd: wt version
