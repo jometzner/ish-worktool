@@ -4,4 +4,5 @@ scripts/build/
 scripts/ISHWorkTools.egg-info/
 **/*.pyc
 license/license.xml
-myenv/
+venv/
+.venv/
