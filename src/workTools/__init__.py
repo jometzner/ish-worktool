@@ -157,19 +157,20 @@ class WorkTools(object):
         args = parser.parse_args()
         return args
 
-    def run(self):
-        args = self.parse_args()
-        if args.command == 'setup':
-            self.setup(args.version, args._alias, args._dbType)
-        elif args.command == 'list':
-            self.list()
-        elif args.command == 'update':
-            self.update(args.alias)
-        elif args.command == 'build':
-            self.build(args.alias, None)
-        elif args.command == 'version':
-            self.version()
-        elif args.command == 'cd':
-            self.cd(args.alias)
-        else:
-            return -1
+def run():
+    work_tools = WorkTools()
+    args = work_tools.parse_args()
+    if args.command == 'setup':
+        work_tools.setup(args.version, args._alias, args._dbType)
+    elif args.command == 'list':
+        work_tools.list()
+    elif args.command == 'update':
+        work_tools.update(args.alias)
+    elif args.command == 'build':
+        work_tools.build(args.alias, None)
+    elif args.command == 'version':
+        work_tools.version()
+    elif args.command == 'cd':
+        work_tools.cd(args.alias)
+    else:
+        return -1

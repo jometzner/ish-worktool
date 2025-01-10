@@ -39,10 +39,7 @@ Issues = "https://github.com/jometzner/ish-worktool/issues"
 Source = "https://github.com/jometzner/ish-worktool"
 
 [project.scripts]
-wt = "workTools:WorkTools"
-
-[tool.setuptools.packages.find]
-where = ["src"]
+wt = "workTools:run"
 
 [tool.setuptools_scm]
 version_scheme = "guess-next-dev"
