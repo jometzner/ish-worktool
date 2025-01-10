@@ -1,7 +1,6 @@
 build/
-scripts/dist/
-scripts/build/
-scripts/ISHWorkTools.egg-info/
+dist/
+src/ISHWorkTools.egg-info/
 **/*.pyc
 license/license.xml
 venv/

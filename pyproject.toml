@@ -1,7 +1,5 @@
 [build-system]
-# Minimum requirements for the build system to execute.
-# requires = ["setuptools", "wheel"]  # PEP 508 specifications.
-requires = ["setuptools", "setuptools-scm", "wheel"]
+requires = ["setuptools>=42", "wheel", "setuptools_scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -23,12 +21,13 @@ classifiers = [
   "Programming Language :: Python :: 3.11"
 ]
 dependencies = [
-  "easyargs==0.9.4",
   "gitdb==4.0.10",
   "gitpython==3.1.41",
   "jinja2==3.1.2",
   "markupsafe==2.1.2",
   "pyyaml==6.0.2",
+  "setuptools-scm>=8.1.0",
+  "setuptools>=75.8.0",
   "six==1.16.0",
   "smmap==5.0.0",
 ]
@@ -43,4 +42,8 @@ Source = "https://github.com/jometzner/ish-worktool"
 wt = "workTools:WorkTools"
 
 [tool.setuptools.packages.find]
-where = ["scripts"]
+where = ["src"]
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"
+local_scheme = "dirty-tag"

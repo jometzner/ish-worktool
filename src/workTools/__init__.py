@@ -5,7 +5,7 @@ from os.path import expanduser, join
 from os import environ
 from subprocess import run, CalledProcessError
 from yaml import load
-import easyargs
+import argparse
 import pkg_resources
 
 try:
@@ -14,7 +14,6 @@ except ImportError:
     from yaml import Loader
 
 
-@easyargs
 class WorkTools(object):
     """Work tool collection. JMetzner (at) intershop.de"""
 
@@ -77,24 +76,6 @@ class WorkTools(object):
         else:
             update_icm.update(alias, wd, utils.getVersionFile(self.workdir))
 
-    def add(self, alias, project):
-        """
-        Add multi-project to Intershop commerce management server
-        :param alias: The short handle that is associated with a wt-dir
-        :param project: The name of the assembly or component set to be added
-        """
-        wd = None
-        for i in Workdir(self.workdir).list():
-            if i.alias == alias:
-                wd = i
-
-        if wd == None:
-            print("No work directory found with associated alias '%s'." % (alias))
-            self.list()
-        else:
-            add_componentset.addComponentset(
-                wd, alias, project, utils.getVersionFile(self.workdir))
-
     def build(self, alias, _project):
         """
         Build and publish the artifact of a multi-project
@@ -122,7 +103,11 @@ class WorkTools(object):
         """
         Print version information
         """
-        print(pkg_resources.get_distribution('ISHWorkTools').version)
+        try:
+            version = pkg_resources.get_distribution('ISHWorkTools').version
+            print(f"ISHWorkTools version: {version}")
+        except pkg_resources.DistributionNotFound:
+            print("ISHWorkTools package is not installed.")
 
     def cd(self, alias, ):
         """
@@ -146,6 +131,45 @@ class WorkTools(object):
                 except CalledProcessError as identifier:
                     pass
 
+    def parse_args(self):
+        parser = argparse.ArgumentParser(description='Work tool collection')
+        subparsers = parser.add_subparsers(dest='command')
 
-if __name__ == '__main__':
-    WorkTools()
+        setup_parser = subparsers.add_parser('setup', help='Setup a new intershop commerce management server')
+        setup_parser.add_argument('version', type=str, help='The ICM marketing version')
+        setup_parser.add_argument('_alias', type=str, help='The short handle associated with a wt-dir')
+        setup_parser.add_argument('_dbType', type=str, choices=['oracle', 'mssql'], default='oracle', help='The database type to be used')
+
+        list_parser = subparsers.add_parser('list', help='List all managed intershop commerce management server(s)')
+
+        update_parser = subparsers.add_parser('update', help='Update settings of intershop commerce management server')
+        update_parser.add_argument('alias', type=str, help='The short handle associated with a wt-dir')
+        
+        build_parser = subparsers.add_parser('build', help='Build and publish the artifact of a multi-project')
+        build_parser.add_argument('alias', type=str, help='The short handle associated with a wt-dir')
+
+        subparsers.add_parser('version', help='Print version information')
+
+        cd_parser = subparsers.add_parser('cd', help='Change to the work directory associated with the given alias')
+        cd_parser.add_argument('alias', type=str, help='The short handle associated with a wt-dir')
+        
+
+        args = parser.parse_args()
+        return args
+
+    def run(self):
+        args = self.parse_args()
+        if args.command == 'setup':
+            self.setup(args.version, args._alias, args._dbType)
+        elif args.command == 'list':
+            self.list()
+        elif args.command == 'update':
+            self.update(args.alias)
+        elif args.command == 'build':
+            self.build(args.alias, None)
+        elif args.command == 'version':
+            self.version()
+        elif args.command == 'cd':
+            self.cd(args.alias)
+        else:
+            return -1

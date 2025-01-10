@@ -1,7 +1,7 @@
 FROM python:3.10-alpine
 ARG displayVersion=
 ENV DISPLAY_VERSION=$displayVersion
-COPY scripts /usr/src/app/scripts/
+COPY src /usr/src/app/scripts/
 COPY pyproject.toml /usr/src/app
 WORKDIR /usr/src/app
 RUN pip3 install .
