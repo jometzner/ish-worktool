@@ -7,7 +7,10 @@ intershop.webforms.CheckSource=true
 intershop.template.CheckSource=true
 intershop.template.CheckSourceModified=true
 intershop.template.isfilebundle.CheckSource=true
+intershop.template.isfilebundle.Process=true
+intershop.template.isfilebundle.Combine=true
 intershop.urlrewrite.CheckSource=true
+intershop.template.isfilebundle.jsprocessor=yui
 
 # switch all preload functionality off
 intershop.pipelines.PreloadFromCartridges=
@@ -37,12 +40,28 @@ intershop.template.PrintTemplateName=true
 intershop.template.PrintTemplateMarker=true
 intershop.session.TimeOut=300
 intershop.CSRFGuard.allowRecovery=true
-intershop.cpu.id=
+intershop.cpu.id=8
 
 # Mail integration
 mail.smtp.host=localhost
 mail.smtp.port=1025
 
+# Solr replication factor
+solr.collectionReplicationFactor = 1
+
 staging.system.type=edit
 intershop.auditing.enable=false
 intershop.servletEngine.connector.address=127.0.0.1
+
+SecureAccessOnly = true
+intershop.apitoken.cookie.enabled = true
+intershop.apitoken.cookie.sslmode = true
+intershop.apitoken.cookie.name = mf
+intershop.apitoken.cookie.sslmode = true
+
+# intershop.session.securetoken.cookie.name=bla
+intershop.WebServerSecureURL=https://jmetznernb.jometzner.de:9443
+# intershop.cartridges.rest.tokenKind=JWT
+
+
+intershop.jdbc.connectionCacheMaxLimit = 200

@@ -38,15 +38,15 @@ databaseType = {{ databaseType }}
 {% if databaseType == "mssql" %}jdbcUrl = jdbc:sqlserver://localhost:1433;databaseName=DB;
 databaseUser = intershop
 databasePassword = intershop
-{% else %}jdbcUrl = jdbc:oracle:thin:@jdevdb7.rnd.j.intershop.de:1521:I12EE02
+{% else %}jdbcUrl = jdbc:oracle:thin:@localhost:1521:XE
 databaseUser = jmetzner{{ instanceId }}
 databasePassword = jmetzner{{ instanceId }}
 {% endif %}
-databaseHost = jdevdb7.rnd.j.intershop.de
+databaseHost = localhost
 databasePort = 1521
-databaseSid = I12EE02
-databaseTnsAlias = I12EE02.world
-oracleClientDir = /home/{{ user }}
+databaseSid = XE
+databaseTnsAlias = local01.world
+oracleClientDir = /home/{{ user }}/.local/opt/oracle/instantclient_21_13
 {% if os != 'nt' %}
 # User group and user, uncomment and set on Linux
 user = {{ user }}
@@ -62,6 +62,28 @@ multicastPort = 5000{{ instanceId }}
 webAdapterSharedMemoryKey = 0x2001
 
 #list of ZooKeeper connection urls separated ';'), which manage the solr cluster
-solrZooKeeperHostList = localhost:9981
+solrZooKeeperHostList = localhost:9983
 #prefix to distinguish solr indexes, within the solr cluster
 solrClusterIndexPrefix = {{ wtid }}
+
+
+# Eureka Server settings
+#
+eurekaServerHostName = localhost
+eurekaServerPort = 8761
+eurekaServerPath = eureka/
+eurekaAppServerName = ApplicationServer1
+microServiceName = Microservice1
+microServicePort = 9321
+microServiceInstanceId = Microservice1InstanceId
+# Microservice database configuration
+microserviceConnectionUrlDatabase = jdbc:oracle:thin:@localhost:1521:XE
+microserviceUserDatabase = microservice
+microservicePasswordDatabase = intershop
+# Microservice naming mapping
+microserviceRecurringOrderName = Microservice1
+microserviceSchedulingName = Microservice1
+
+#
+# /END of Microservice Deployment config
+#
