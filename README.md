@@ -1,11 +1,11 @@
-# My dotfiles project
+# Introduction
 This is project contains intershop development specific settings that can be
 cloned and distributed into developer machine setups. Usually it goes like
 this:
 - You have a new (empty) environment. Either because you have a new physical
   machine or a new OS user or a VM you want to equip with tooling
 - Clone this git repository into `~/work/.dotfiles`
-- Go to directory `~/work/.dotfiles/scripts` and execute `./install.sh`
+- Go to directory `~/work/.dotfiles` and execute `./install.sh`
 - Start with setting up a new ICM development environment. You can use the
   `Work Tools` for that. Just type `wt setup_icm <version>`
 
@@ -14,13 +14,13 @@ this:
 ## System requirements
 
 -   Python 3 or higher is necessary
--   pip - package manager for Python packages, see [PyPA](https://www.pypa.io/en/latest/)
+-   uv - package manager for Python packages, see [uv](https://docs.astral.sh/uv/getting-started/installation/)
 -   git executable must be present in `PATH` system variable
 
 ## Installation
 
 On Linux you can simply execute `./install.sh`.\
-On Windows systems you need to execute `pip3 install --user easyargs && python3 setup.py install --user` **(not tested yet!)**
+On Windows systems you need to execute `uv build && pip3 install --user dist/*.whl` **(not tested yet!)**
 
 ## Usage
 
@@ -38,5 +38,5 @@ On Windows systems you need to execute `pip3 install --user easyargs && python3 
 
 ## Known Issues
 
--   f_b2b and f_solrcloud are not supported yet
+-   Component sets are not supported anymore
 -   Deploying a server is not possible yet
