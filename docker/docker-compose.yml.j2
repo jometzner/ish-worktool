@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   solr:
-    image: solr:8
+    image: docker.io/library/solr:8
     container_name: solr{{ instanceId }}
     ports:
       - "127.0.0.1:8981:8983"
@@ -36,7 +36,7 @@ services:
       - icm_db_mssql{{ instanceId }}:/var/opt/mssql{% endif %}
 
   mail:
-    image: mailhog/mailhog
+    image: docker.io/mailhog/mailhog
     container_name: mailhog
     ports:
       - 127.0.0.1:1025:1025
